@@ -27,13 +27,36 @@
     <button>Contar</button>
     <ul id=counters></ul>
     <script>
-        /*let button = document.querySelector('button');
-        let input = document.querySelector('input');
-        let i = 0;
+        const button = document.querySelector('button');
+        const input = document.querySelector('input');
+        const list = document.querySelector('#counters');
 
-        let cont = setInterval(() => {
+        function count(milliseconds) {
+            return new Promise(resolve => {
+                let index = setTimeout(() => {
+                    resolve(index);
+                }, milliseconds)
+            });
+        }
+        function addCont(seconds) {
+            let c = 0;
+            let number = document.createElement('li');
+            let cont = setInterval(() => {
+                c++;
+                console.log(`${c}/${seconds}`);
+                number.textContent = `${c}/${seconds}`;
+            }, 1000)
+            list.appendChild(number);
 
-        }, 1000)
+            function stop(timeOut){
+                clearInterval(cont);
+                number.remove();
+                clearTimeout(timeOut);
+            }
+            number.onclick = stop;
+            count(seconds * 1000).then((i)=>stop(i));
+        }
+
 
         input.addEventListener('input', () => {
             if (input.value === '') {
@@ -43,48 +66,20 @@
             }
         })
 
-        button.addEventListener('click', cont);
+        button.addEventListener('click', () => {
+            if (input.value) {
+                addCont(input.value);
+            }
+        });
 
         input.addEventListener('keydown', event => {
             if (event.keyCode === 13) {
-                console.log('Funciona')
+                console.log('Enter');
+                addCont(input.value);
             }
-        })*/
+        })
 
-        const [input, button, counters] = document.querySelectorAll('input','button','#counters');
 
-        function count(milliseconds) {
-            return new Promise(resolve => setTimeout(resolve, milliseconds));
-        }
-
-        function addCounter(seconds){
-            let c = 0;
-            const counter =  document.createElement('li');
-            counter.textContent = '0/'+ seconds;
-
-            const interval = setInterval(() => {
-                c++;
-                console.log(`counter: ${c}/${seconds}`);  
-                counter.textContent = ` ${c}/${seconds}`;        
-            }, 1000);
-            counters.appendChild(cpunter);
-
-            count(seconds*1000).then(() => {
-                clearInterval(interval);
-                counter.remove();
-            })
-        }
-
-        input.onkeyup = (e) => {
-            const seconds = e.target.value;
-            button.textContent = seconds ? `Contar ${seconds} segundos` : 'Contar';
-
-            if(e.key === 'Enter'){
-                button.click();
-            }
-        }
-
-        
     </script>
 </body>
 
